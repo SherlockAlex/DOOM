@@ -54,26 +54,27 @@ rcsid[] = "$Id: r_draw.c,v 1.4 1997/02/03 16:47:55 b1 Exp $";
 // All drawing to the view buffer is accomplished in this file.
 // The other refresh files only know about ccordinates,
 //  not the architecture of the frame buffer.
+// 不是帧缓存的架构
 // Conveniently, the frame buffer is a linear one,
 //  and we need only the base address,
 //  and the total size == width*height*depth/8.,
 //
 
 
-byte*		viewimage; 
-int		viewwidth;
-int		scaledviewwidth;
-int		viewheight;
-int		viewwindowx;
-int		viewwindowy; 
-byte*		ylookup[MAXHEIGHT]; 
-int		columnofs[MAXWIDTH]; 
+byte*		viewimage; //视觉图像，数组
+int		viewwidth; //视觉宽度
+int		scaledviewwidth; //伸缩后的视觉宽度
+int		viewheight; //视觉宽度
+int		viewwindowx; //视觉x
+int		viewwindowy; //视觉y
+byte*		ylookup[MAXHEIGHT]; //查找
+int		columnofs[MAXWIDTH]; //属性栏
 
-// Color tables for different players,
-//  translate a limited part to another
-//  (color ramps used for  suit colors).
+// Color tables for different players,//不同player调色板
+//  translate a limited part to another 
+//  (color ramps used for  suit colors).//色带
 //
-byte		translations[3][256];	
+byte		translations[3][256];	//存放颜色信息的
  
  
 
@@ -112,6 +113,8 @@ void R_DrawColumn (void)
     count = dc_yh - dc_yl; 
 
     // Zero length, column does not exceed a pixel.
+    //0长，属性不超过一个像素
+
     if (count < 0) 
 	return; 
 				 
@@ -458,6 +461,9 @@ void R_DrawTranslatedColumn (void)
 //
 void R_InitTranslationTables (void)
 {
+
+    //初始化调色信息
+
     int		i;
 	
     translationtables = Z_Malloc (256*3+255, PU_STATIC, 0);
